@@ -1,31 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 
 import { Button } from './Button';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+  }
+}
+//configuracion global
 const meta = {
-  title: 'Example/Button',
-  component: Button,
+  title: 'Example/Button', // Nombre que figura en la barra lateral
+  component: Button, //se asigna el componente
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    // Optional parameter to center the component in the Canvas.
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ['autodocs'],
+  tags: ['autodocs'], // se puede usar para generar documentación automáticamente
   // tags: ['!autodocs'],
-  argTypes: {
+  argTypes: { // define las propiedades (props) de tu componente y cómo son controladas en la interfaz de Storybook
     backgroundColor: { control: 'color' },  // PROP:  cambia su color dependiendo de la interacción
     label: { control: 'text' }, // PROP:  cambia su texto dependiendo de la interacción
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn(), label: 'Click me' },
+  args: { onClick: action('🔥 ¡Botón clickeado!'), label: 'Click me' }, //definen los valores iniciales de las props
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
     primary: true,
@@ -42,7 +44,7 @@ export const Secondary: Story = {
 export const Large: Story = {
   args: {
     size: 'large',
-    label: 'Grande',
+    label: 'Button',
   },
 };
 
@@ -56,14 +58,28 @@ export const Small: Story = {
 export const Test: Story = {
   args: {
     primary: false,
-    label: "Button"
+    label: "PRUEBA"
   }
 };
 
-export const Error: Story = {
+//este botón ya dispara correctamente el evento de GTM
+export const ConTracking: Story = {
   args: {
     primary: true,
     label: "Button",
-    backgroundColor: "red"
+    backgroundColor: "blue",
+    onClick: () => {
+      console.log('📊 Evento de tracking ejecutado');
+
+      // Simulación de evento a GTM
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'boton_custom_click',
+        category: 'CTA Storybook',
+        label: 'Trackeame',
+      });
+
+      console.log('📤 Enviado a dataLayer:', window.dataLayer[window.dataLayer.length - 1]);
+    },
   }
-};
+}

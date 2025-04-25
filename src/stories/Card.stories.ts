@@ -29,3 +29,5 @@ export const Default: Story = {
         content: 'This is the default content of the card.',
     },
 };
+
+//TO-DO: AGREGAR MÁS HISTORIAS
