@@ -8,6 +8,7 @@ export interface ButtonProps {
   // borderColor?: string; //EJEMPLO DE AGREGAR UN PROP
   label: string;
   onClick?: () => void;
+  borderColor?: string; //EJEMPLO DE AGREGAR UN PROP
 }
 
 export const Button = ({
@@ -16,6 +17,7 @@ export const Button = ({
   backgroundColor,
   label,
   // borderColor, //EJEMPLO DE AGREGAR UN PROP
+  borderColor,
   ...props
 }: ButtonProps) => {
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
@@ -23,7 +25,7 @@ export const Button = ({
     <button
       type="button"
       className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor, borderWidth: '2px', borderStyle: 'solid' }}
+      style={{ backgroundColor, borderWidth: '2px', borderStyle: 'solid', borderColor }}
       {...props}
     >
       {label}

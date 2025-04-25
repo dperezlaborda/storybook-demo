@@ -31,3 +31,19 @@ export const Default: Story = {
 };
 
 //TO-DO: AGREGAR MÁS HISTORIAS
+
+export const CardError: Story = {
+    args: {
+        title: 'Error Card Title',
+        content: 'This is the error content of the card.',
+        backgroundColor: 'red',
+    }
+}
+
+export const Warning: Story = {
+  args: {
+    title: "Warning!",
+    content: "This is the error content of the card.",
+    backgroundColor: "yellow"
+  }
+};

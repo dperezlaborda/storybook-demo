@@ -21,6 +21,7 @@ const meta = {
   argTypes: { // define las propiedades (props) de tu componente y cómo son controladas en la interfaz de Storybook
     backgroundColor: { control: 'color' },  // PROP:  cambia su color dependiendo de la interacción
     label: { control: 'text' }, // PROP:  cambia su texto dependiendo de la interacción
+    borderColor: { control: 'color' },
   },
   args: { onClick: action('🔥 ¡Botón clickeado!'), label: 'Click me' }, //definen los valores iniciales de las props
 } satisfies Meta<typeof Button>;
@@ -44,7 +45,7 @@ export const Secondary: Story = {
 export const Large: Story = {
   args: {
     size: 'large',
-    label: 'Button',
+    label: 'Grande Button',
   },
 };
 
@@ -83,3 +84,12 @@ export const ConTracking: Story = {
     },
   }
 }
+
+export const Error: Story = {
+  args: {
+    label: "Error",
+    primary: true,
+    backgroundColor: "red",
+    size: "large"
+  }
+};
